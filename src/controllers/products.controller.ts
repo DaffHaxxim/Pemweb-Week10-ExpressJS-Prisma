@@ -21,3 +21,17 @@ export function getProductById(req: Request, res: Response) {
 
   res.status(200).json(product);
 }
+
+export function createProduct(req: Request, res: Response) {
+  const { name, price } = req.body ?? {};
+
+  if (typeof name !== 'string' || name.trim() === '' || typeof price !== 'number') {
+    return res.status(400).json({ message: 'name (teks) dan price (angka) wajib diisi' });
+  }
+
+  const newId = products.length > 0 ? Math.max(...products.map((p) => p.id)) + 1 : 1;
+  const product: Product = { id: newId, name: name.trim(), price };
+  products.push(product);
+
+  res.status(201).json(product);
+}
