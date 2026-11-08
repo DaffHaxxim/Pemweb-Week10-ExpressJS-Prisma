@@ -12,7 +12,9 @@
     "start": "node dist/index.js",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:deploy": "prisma migrate deploy"
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio --port 51212"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
