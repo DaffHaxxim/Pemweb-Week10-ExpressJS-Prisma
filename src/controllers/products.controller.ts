@@ -1,4 +1,5 @@
 import type { Request, Response } from 'express';
+import { prisma } from '../lib/prisma.js';
 
 type Product = { id: number; name: string; price: number };
 
@@ -7,13 +8,20 @@ const products: Product[] = [
   { id: 2, name: 'Pulpen', price: 5000 },
 ];
 
-export function getProducts(req: Request, res: Response) {
-  res.status(200).json(products);
+export async function getProducts(req: Request, res: Response) {
+  const result = await prisma.product.findMany({ orderBy: { id: 'asc' } });
+  res.status(200).json(result);
 }
 
-export function getProductById(req: Request, res: Response) {
+export async function getProductById(req: Request, res: Response) {
   const id = Number(req.params.id);
-  const product = products.find((p) => p.id === id);
+
+  // id bukan bilangan bulat tidak mungkin ada di database.
+  if (!Number.isSafeInteger(id)) {
+    return res.status(404).json({ message: 'Produk tidak ditemukan' });
+  }
+
+  const product = await prisma.product.findUnique({ where: { id } });
 
   if (!product) {
     return res.status(404).json({ message: 'Produk tidak ditemukan' });
