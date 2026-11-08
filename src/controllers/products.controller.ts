@@ -1,7 +1,11 @@
 import type { Request, Response } from 'express';
 import { prisma } from '../lib/prisma.js';
 import { HttpError } from '../middleware/error-handler.js';
-import { parseIdParam, validateCreateProduct } from '../validators/product.validator.js';
+import {
+  parseIdParam,
+  validateCreateProduct,
+  validateUpdateProduct,
+} from '../validators/product.validator.js';
 
 export async function getProducts(req: Request, res: Response) {
   const result = await prisma.product.findMany({ orderBy: { id: 'asc' } });
@@ -26,4 +30,13 @@ export async function createProduct(req: Request, res: Response) {
   const product = await prisma.product.create({ data });
 
   res.status(201).json(product);
+}
+
+// PUT /products dengan body { id, name, price }. Prisma melempar P2025 bila id
+// tidak ada; error handler mengubahnya menjadi 404.
+export async function updateProduct(req: Request, res: Response) {
+  const { id, name, price } = validateUpdateProduct(req.body);
+  const product = await prisma.product.update({ where: { id }, data: { name, price } });
+
+  res.status(200).json(product);
 }
