@@ -40,3 +40,11 @@ export async function updateProduct(req: Request, res: Response) {
 
   res.status(200).json(product);
 }
+
+// DELETE /products/:id. Prisma melempar P2025 bila id tidak ada (menjadi 404).
+export async function deleteProduct(req: Request, res: Response) {
+  const id = parseIdParam(String(req.params.id));
+  const product = await prisma.product.delete({ where: { id } });
+
+  res.status(200).json({ message: 'Produk berhasil dihapus', product });
+}
