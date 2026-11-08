@@ -1,0 +1,15 @@
+meta {
+  name: 14 DELETE produk yang sudah terhapus (404)
+  type: http
+  seq: 14
+}
+
+delete {
+  url: {{baseUrl}}/products/{{penghapusId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}

@@ -1,0 +1,15 @@
+meta {
+  name: 01 GET semua produk (sukses)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/products
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}

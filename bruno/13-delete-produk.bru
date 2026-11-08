@@ -1,0 +1,15 @@
+meta {
+  name: 13 DELETE produk Penghapus (sukses)
+  type: http
+  seq: 13
+}
+
+delete {
+  url: {{baseUrl}}/products/{{penghapusId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}

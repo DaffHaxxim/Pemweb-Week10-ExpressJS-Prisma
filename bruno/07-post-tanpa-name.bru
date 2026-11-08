@@ -1,0 +1,25 @@
+meta {
+  name: 07 POST tanpa name (400 validasi)
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/products
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "price": 5000
+  }
+}
+
+assert {
+  res.status: eq 400
+}

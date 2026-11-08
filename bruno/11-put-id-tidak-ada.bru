@@ -1,0 +1,27 @@
+meta {
+  name: 11 PUT id tidak ada (404)
+  type: http
+  seq: 11
+}
+
+put {
+  url: {{baseUrl}}/products
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 9999,
+    "name": "Hantu",
+    "price": 1000
+  }
+}
+
+assert {
+  res.status: eq 404
+}

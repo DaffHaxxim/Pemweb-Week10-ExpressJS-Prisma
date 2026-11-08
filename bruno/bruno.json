@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "name": "Pemweb Week 10 - API Produk",
+  "type": "collection",
+  "ignore": ["node_modules", ".git"]
+}

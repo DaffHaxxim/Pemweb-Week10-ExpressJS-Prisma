@@ -1,0 +1,30 @@
+meta {
+  name: 03 POST produk Penghapus (sukses, id berbeda)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/products
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Penghapus",
+    "price": 3000
+  }
+}
+
+vars:post-response {
+  penghapusId: res.body.id
+}
+
+assert {
+  res.status: eq 201
+}

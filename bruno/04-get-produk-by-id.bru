@@ -1,0 +1,15 @@
+meta {
+  name: 04 GET produk by id hasil POST (sukses)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/products/{{spidolId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
