@@ -6,8 +6,9 @@ import productsRouter from './routes/products.routes.js';
 
 const app = express();
 
-app.use(express.json());
+// Logger dipasang sebelum express.json() agar request dengan body JSON rusak (400) juga tercatat.
 app.use(requestLogger);
+app.use(express.json());
 app.use('/hello', helloRouter);
 app.use('/products', productsRouter);
 
